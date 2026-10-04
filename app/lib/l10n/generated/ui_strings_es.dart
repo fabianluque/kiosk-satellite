@@ -12066,6 +12066,20 @@ class UiStringsEs extends UiStrings {
       'Más esfuerzo responde mejor las preguntas difíciles. Requiere un modelo que razone, como gemini-3.8-live-extended-thinking.';
 
   @override
+  String get settingVoiceRealtimeXaiSearchTitle => 'Web Search';
+
+  @override
+  String get settingVoiceRealtimeXaiSearchDescription =>
+      'Lets the model look things up on the web.';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchTitle => 'X Search';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchDescription =>
+      'Lets the model look things up on X.';
+
+  @override
   String get settingVoiceRealtimeGeminiSearchTitle => 'Búsqueda de Google';
 
   @override
