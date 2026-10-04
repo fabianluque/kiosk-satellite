@@ -675,9 +675,42 @@ void main() {
         expect(session['voice'], 'ara');
         expect((session['turn_detection'] as Map)['type'], 'server_vad');
         expect(session.containsKey('type'), isFalse);
+        // Search tools stay off: only the Home Assistant functions go.
+        expect((session['tools'] as List).first['type'], 'function');
+        expect(
+          (session['tools'] as List).any((t) => t['type'] == 'web_search'),
+          isFalse,
+        );
+        expect(
+          (session['tools'] as List).any((t) => t['type'] == 'x_search'),
+          isFalse,
+        );
         await backend.close();
       },
     );
+
+    test('xAI: Web Search and X Search are session tools when set', () async {
+      var backend = make(
+        const RealtimeConfig(
+          provider: RealtimeProvider.xai,
+          search: true,
+          xSearch: true,
+        ),
+      );
+      await backend.start(const RealtimeStart());
+      var tools = (socket.sent.first['session'] as Map)['tools'] as List;
+      expect(tools.first, {'type': 'web_search'});
+      expect(tools[1], {'type': 'x_search'});
+      expect((tools.last as Map)['type'], 'function');
+      await backend.close();
+
+      backend = make(const RealtimeConfig(provider: RealtimeProvider.xai));
+      await backend.start(const RealtimeStart());
+      tools = (socket.sent.first['session'] as Map)['tools'] as List;
+      expect(tools.any((t) => (t as Map)['type'] == 'web_search'), isFalse);
+      expect(tools.any((t) => (t as Map)['type'] == 'x_search'), isFalse);
+      await backend.close();
+    });
 
     test('audio, transcripts and the answer come through as events', () async {
       final backend = make(

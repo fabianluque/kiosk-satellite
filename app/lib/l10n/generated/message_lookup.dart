@@ -3943,6 +3943,14 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingVoiceRealtimeReasoningDescription,
       'settingVoiceRealtimeGeminiReasoningDescription' =>
         strings.settingVoiceRealtimeGeminiReasoningDescription,
+      'settingVoiceRealtimeXaiSearchTitle' =>
+        strings.settingVoiceRealtimeXaiSearchTitle,
+      'settingVoiceRealtimeXaiSearchDescription' =>
+        strings.settingVoiceRealtimeXaiSearchDescription,
+      'settingVoiceRealtimeXaiXSearchTitle' =>
+        strings.settingVoiceRealtimeXaiXSearchTitle,
+      'settingVoiceRealtimeXaiXSearchDescription' =>
+        strings.settingVoiceRealtimeXaiXSearchDescription,
       'settingVoiceRealtimeGeminiSearchTitle' =>
         strings.settingVoiceRealtimeGeminiSearchTitle,
       'settingVoiceRealtimeGeminiSearchBillingDescription' =>

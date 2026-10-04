@@ -59,6 +59,7 @@ class RealtimeConfig {
     this.speed = 1,
     this.reasoning = '',
     this.search = false,
+    this.xSearch = false,
     this.proactive = false,
   });
 
@@ -81,8 +82,11 @@ class RealtimeConfig {
   /// refuses the field.
   final String reasoning;
 
-  /// Gemini only: its Google Search tool.
+  /// Gemini's Google Search tool, or xAI's web_search tool.
   final bool search;
+
+  /// xAI only: its X Search tool.
+  final bool xSearch;
 
   /// Gemini only: proactive audio, which only Google's v1alpha API has.
   final bool proactive;
@@ -375,7 +379,12 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
             if (config.speed != 1) 'speed': config.speed,
           },
         },
-        if (toolList.isNotEmpty) 'tools': toolList,
+        if (toolList.isNotEmpty || config.search || config.xSearch)
+          'tools': [
+            if (config.search) {'type': 'web_search'},
+            if (config.xSearch) {'type': 'x_search'},
+            ...toolList,
+          ],
       },
       RealtimeProvider.gemini => throw UnsupportedError(
         'Gemini speaks the Live API (GeminiLiveBackend)',

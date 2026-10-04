@@ -5681,6 +5681,34 @@ const voiceRealtimeXaiEndpoint = SettingDef<String>(
   dependsOn: 'voice.enabled',
 );
 
+/// xAI's own Web Search tool, next to the Home Assistant ones. The
+/// provider runs it on the session; the kiosk does not search itself.
+const voiceRealtimeXaiSearch = SettingDef<bool>(
+  key: 'voice.realtime_xai_search',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Web Search',
+  description: 'Lets the model look things up on the web.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'Providers',
+  dependsOn: 'voice.enabled',
+);
+
+/// xAI's own X Search tool, next to the Home Assistant ones. The
+/// provider runs it on the session; the kiosk does not search itself.
+const voiceRealtimeXaiXSearch = SettingDef<bool>(
+  key: 'voice.realtime_xai_x_search',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'X Search',
+  description: 'Lets the model look things up on X.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'Providers',
+  dependsOn: 'voice.enabled',
+);
+
 /// What xAI's last successful Save & Validate checked: a hash of
 /// its endpoint and key. The Assistant selects offer it only while that
 /// still matches. Per device: each kiosk reaches the provider on its own.
@@ -5856,6 +5884,7 @@ const realtimeProviderSettings = <String, List<SettingDef<String>>>{
 /// The switches each provider's Configure dialog holds after the settings
 /// above, by provider id. Hidden from the page the same way.
 const realtimeProviderSwitches = <String, List<SettingDef<bool>>>{
+  'xai': [voiceRealtimeXaiSearch, voiceRealtimeXaiXSearch],
   'gemini': [voiceRealtimeGeminiSearch, voiceRealtimeGeminiProactive],
 };
 
@@ -10383,6 +10412,8 @@ const List<SettingDef<Object>> allSettings = [
   voiceRealtimeXaiModel,
   voiceRealtimeXaiVoice,
   voiceRealtimeXaiEndpoint,
+  voiceRealtimeXaiSearch,
+  voiceRealtimeXaiXSearch,
   voiceRealtimeXaiValidated,
   voiceRealtimeGeminiApiKey,
   voiceRealtimeGeminiModel,
